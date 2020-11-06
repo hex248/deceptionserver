@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "deceptionServer", "deceptionServer\deceptionServer.csproj", "{641027CC-BC1E-4BB7-A8BC-81C6ED255CD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{641027CC-BC1E-4BB7-A8BC-81C6ED255CD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{641027CC-BC1E-4BB7-A8BC-81C6ED255CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{641027CC-BC1E-4BB7-A8BC-81C6ED255CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{641027CC-BC1E-4BB7-A8BC-81C6ED255CD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {607448BB-3BE4-417D-B051-F016A22230E1}
+	EndGlobalSection
+EndGlobal

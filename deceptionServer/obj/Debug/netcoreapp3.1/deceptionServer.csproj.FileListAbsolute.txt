@@ -1,0 +1,13 @@
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\bin\Debug\netcoreapp3.1\deceptionServer.exe
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\bin\Debug\netcoreapp3.1\deceptionServer.deps.json
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\bin\Debug\netcoreapp3.1\deceptionServer.runtimeconfig.json
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\bin\Debug\netcoreapp3.1\deceptionServer.runtimeconfig.dev.json
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\bin\Debug\netcoreapp3.1\deceptionServer.dll
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\bin\Debug\netcoreapp3.1\deceptionServer.pdb
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.csprojAssemblyReference.cache
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.AssemblyInfoInputs.cache
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.AssemblyInfo.cs
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.csproj.CoreCompileInputs.cache
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.dll
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.pdb
+D:\Programming\Unity\deception\Server\deceptionServer\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.genruntimeconfig.cache
