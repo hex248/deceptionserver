@@ -11,7 +11,6 @@ namespace deceptionServer
         public static int dataBufferSize = 4096;
 
         public int id;
-        public Player player;
         public TCP tcp;
         public UDP udp;
 

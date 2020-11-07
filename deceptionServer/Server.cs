@@ -36,6 +36,9 @@ namespace deceptionServer
             playerNameListener = new UdpClient(Port);
             playerNameListener.BeginReceive(playerNameReceiveCallback, null);
 
+            chatMessageListener = new UdpClient(Port);
+            chatMessageListener.BeginReceive(chatMessageReceiveCallback, null);
+
             Console.WriteLine($"Server started on {Port}"); // Server started
         }
 
