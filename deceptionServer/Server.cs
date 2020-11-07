@@ -16,8 +16,7 @@ namespace deceptionServer
         public static Dictionary<int, PacketHandler> packetHandlers;
 
         private static TcpListener tcpListener;
-        private static UdpClient playerNameListener;
-        private static UdpClient chatMessageListener;
+        private static UdpClient udpListener;
 
         public static void Start(int _maxPlayers, int _port)
         {
@@ -33,11 +32,8 @@ namespace deceptionServer
             tcpListener.Start(); // Start listening for requests from that ip + port
             tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null); // Accept the client
 
-            playerNameListener = new UdpClient(Port);
-            playerNameListener.BeginReceive(playerNameReceiveCallback, null);
-
-            chatMessageListener = new UdpClient(Port);
-            chatMessageListener.BeginReceive(chatMessageReceiveCallback, null);
+            udpListener = new UdpClient(Port);
+            udpListener.BeginReceive(UDPReceiveCallback, null);
 
             Console.WriteLine($"Server started on {Port}"); // Server started
         }
@@ -61,13 +57,13 @@ namespace deceptionServer
             Console.WriteLine($"{_client.Client.RemoteEndPoint} failed to connect: Server Full!"); // Couldn't connect
         }
 
-        private static void playerNameReceiveCallback(IAsyncResult _result)
+        private static void UDPReceiveCallback(IAsyncResult _result)
         {
             try
             {
                 IPEndPoint _clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
-                byte[] _data = playerNameListener.EndReceive(_result, ref _clientEndPoint);
-                playerNameListener.BeginReceive(playerNameReceiveCallback, null);
+                byte[] _data = udpListener.EndReceive(_result, ref _clientEndPoint);
+                udpListener.BeginReceive(UDPReceiveCallback, null);
 
                 if (_data.Length < 4)
                 {
@@ -85,52 +81,14 @@ namespace deceptionServer
 
                     if (clients[_clientId].udp.endPoint == null)
                     {
+                        // If this is a new connection
                         clients[_clientId].udp.Connect(_clientEndPoint);
                         return;
                     }
 
                     if (clients[_clientId].udp.endPoint.ToString() == _clientEndPoint.ToString())
                     {
-                        clients[_clientId].udp.HandleData(_packet);
-                    }
-                }
-            }
-            catch (Exception _ex)
-            {
-                Console.WriteLine($"Error receiving UDP data: {_ex}");
-            }
-        }
-
-        private static void chatMessageReceiveCallback(IAsyncResult _result)
-        {
-            try
-            {
-                IPEndPoint _clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
-                byte[] _data = chatMessageListener.EndReceive(_result, ref _clientEndPoint);
-                chatMessageListener.BeginReceive(chatMessageReceiveCallback, null);
-
-                if (_data.Length < 4)
-                {
-                    return;
-                }
-
-                using (Packet _packet = new Packet(_data))
-                {
-                    int _clientId = _packet.ReadInt();
-
-                    if (_clientId == 0)
-                    {
-                        return;
-                    }
-
-                    if (clients[_clientId].udp.endPoint == null)
-                    {
-                        clients[_clientId].udp.Connect(_clientEndPoint);
-                        return;
-                    }
-
-                    if (clients[_clientId].udp.endPoint.ToString() == _clientEndPoint.ToString())
-                    {
+                        // Ensures that the client is not being impersonated by another by sending a false clientID
                         clients[_clientId].udp.HandleData(_packet);
                     }
                 }
@@ -147,7 +105,7 @@ namespace deceptionServer
             {
                 if (_clientEndPoint != null)
                 {
-                    playerNameListener.BeginSend(_packet.ToArray(), _packet.Length(), _clientEndPoint, null, null);
+                    udpListener.BeginSend(_packet.ToArray(), _packet.Length(), _clientEndPoint, null, null);
                 }
             }
             catch (Exception _ex)
@@ -166,7 +124,8 @@ namespace deceptionServer
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
-                { (int)ClientPackets.playerNameReceived, ServerHandle.playerNameReceived }
+                { (int)ClientPackets.playerNameReceived, ServerHandle.playerNameReceived },
+                { (int)ClientPackets.chatMessageReceived, ServerHandle.chatMessageReceived }
             };
             Console.WriteLine("Initialised packets.");
         }

@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\USER\\.nuget\\packages\\": {}
+    "C:\\Users\\oli\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\Documents\\Unity\\deceptionserver\\deceptionServer\\deceptionServer.csproj",
+      "projectUniqueName": "D:\\Programming\\Unity\\deceptionserver\\deceptionServer\\deceptionServer.csproj",
       "projectName": "deceptionServer",
-      "projectPath": "C:\\Users\\USER\\Documents\\Unity\\deceptionserver\\deceptionServer\\deceptionServer.csproj",
-      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\Documents\\Unity\\deceptionserver\\deceptionServer\\obj\\",
+      "projectPath": "D:\\Programming\\Unity\\deceptionserver\\deceptionServer\\deceptionServer.csproj",
+      "packagesPath": "C:\\Users\\oli\\.nuget\\packages\\",
+      "outputPath": "D:\\Programming\\Unity\\deceptionserver\\deceptionServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\oli\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -28,7 +28,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.emzi0767.com/api/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
@@ -58,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
