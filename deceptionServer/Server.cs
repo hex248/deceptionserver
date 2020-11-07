@@ -17,6 +17,7 @@ namespace deceptionServer
 
         private static TcpListener tcpListener;
         private static UdpClient playerNameListener;
+        private static UdpClient chatMessageListener;
 
         public static void Start(int _maxPlayers, int _port)
         {
@@ -64,6 +65,46 @@ namespace deceptionServer
                 IPEndPoint _clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
                 byte[] _data = playerNameListener.EndReceive(_result, ref _clientEndPoint);
                 playerNameListener.BeginReceive(playerNameReceiveCallback, null);
+
+                if (_data.Length < 4)
+                {
+                    return;
+                }
+
+                using (Packet _packet = new Packet(_data))
+                {
+                    int _clientId = _packet.ReadInt();
+
+                    if (_clientId == 0)
+                    {
+                        return;
+                    }
+
+                    if (clients[_clientId].udp.endPoint == null)
+                    {
+                        clients[_clientId].udp.Connect(_clientEndPoint);
+                        return;
+                    }
+
+                    if (clients[_clientId].udp.endPoint.ToString() == _clientEndPoint.ToString())
+                    {
+                        clients[_clientId].udp.HandleData(_packet);
+                    }
+                }
+            }
+            catch (Exception _ex)
+            {
+                Console.WriteLine($"Error receiving UDP data: {_ex}");
+            }
+        }
+
+        private static void chatMessageReceiveCallback(IAsyncResult _result)
+        {
+            try
+            {
+                IPEndPoint _clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                byte[] _data = chatMessageListener.EndReceive(_result, ref _clientEndPoint);
+                chatMessageListener.BeginReceive(chatMessageReceiveCallback, null);
 
                 if (_data.Length < 4)
                 {

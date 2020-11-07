@@ -24,5 +24,13 @@ namespace deceptionServer
 
             Console.WriteLine($"Received playerName packet via UDP. Contains username: {_usernameReceived}");
         }
+
+        public static void chatMessageReceived(int _fromClient, Packet _packet)
+        {
+            string _usernameReceived = _packet.ReadString();
+            string _messageReceived = _packet.ReadString();
+
+            Console.WriteLine($"Received chat messsage via UDP: {_messageReceived} from {_usernameReceived}");
+        }
     }
 }

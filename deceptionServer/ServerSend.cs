@@ -92,6 +92,16 @@ namespace deceptionServer
                 SendTCPDataToAll(_packet);
             }
         }
+
+        public static void ChatMessage(int _toClient)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.chatMessage))
+            {
+                _packet.Write("Player message packet.");
+
+                SendUDPData(_toClient, _packet);
+            }
+        }
         #endregion
     }
 }
