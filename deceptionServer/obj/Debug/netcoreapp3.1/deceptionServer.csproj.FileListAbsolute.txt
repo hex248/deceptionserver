@@ -36,3 +36,6 @@ D:\Programming\Unity\deceptionserver\deceptionServer\bin\Debug\netcoreapp3.1\dec
 D:\Programming\Unity\deceptionserver\deceptionServer\bin\Debug\netcoreapp3.1\deceptionServer.dll
 D:\Programming\Unity\deceptionserver\deceptionServer\bin\Debug\netcoreapp3.1\deceptionServer.pdb
 D:\Programming\Unity\deceptionserver\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.genruntimeconfig.cache
+D:\Programming\Unity\deceptionserver\deceptionServer\bin\Debug\netcoreapp3.1\Colorful.Console.dll
+D:\Programming\Unity\deceptionserver\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.csproj.CoreCompileInputs.cache
+D:\Programming\Unity\deceptionserver\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.csproj.CopyComplete
