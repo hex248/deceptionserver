@@ -26,7 +26,7 @@ namespace deceptionServer
                 Server.clients[i].tcp.SendData(_packet);
             }
 
-            Console.WriteLine($"Sent TCP data to all clients: {_packet}");
+            Terminal.Send($"Sent TCP data to all clients: {_packet}", Terminal.log);
         }
         private static void SendTCPDataToAll(int _exceptClient, Packet _packet)
         {
@@ -100,7 +100,7 @@ namespace deceptionServer
                 _packet.Write(_username);
                 _packet.Write(_message);
 
-                Console.WriteLine($"Sending via TCP to all: Chat Message: {_message} from {_username}");
+                Terminal.Send($"Sending via TCP to all: Chat Message: {_message} from {_username}", Terminal.chat);
 
                 SendTCPDataToAll(_packet);
             }

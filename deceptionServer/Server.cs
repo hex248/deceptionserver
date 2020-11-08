@@ -25,7 +25,7 @@ namespace deceptionServer
             Port = _port;
 
             // Start server
-            Console.WriteLine("Starting server..."); // Server is being started
+            Terminal.Send($"Starting Server...", Terminal.log); // Server is being started
             InitialiseServerData(); // Ensure that all variables are defined if it is needed
 
             tcpListener = new TcpListener(IPAddress.Any, Port); // Get the port from any ip that is found
@@ -35,7 +35,7 @@ namespace deceptionServer
             udpListener = new UdpClient(Port);
             udpListener.BeginReceive(UDPReceiveCallback, null);
 
-            Console.WriteLine($"Server started on {Port}"); // Server started
+            Terminal.Send($"Server started on {Port}", Terminal.log); // Server started
         }
 
         private static void TCPConnectCallback(IAsyncResult _result)
@@ -43,7 +43,7 @@ namespace deceptionServer
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result); // Get the client from the result
             tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null); // Start to accept the client
 
-            Console.WriteLine($"Incoming connection from {_client.Client.RemoteEndPoint}");
+            Terminal.Send($"Incoming connection from {_client.Client.RemoteEndPoint}", Terminal.connection);
 
             for (int i = 1; i <= MaxPlayers; i++) // For each player
             {
@@ -54,7 +54,7 @@ namespace deceptionServer
                 }
             }
 
-            Console.WriteLine($"{_client.Client.RemoteEndPoint} failed to connect: Server Full!"); // Couldn't connect
+            Terminal.Send($"{_client.Client.RemoteEndPoint} failed to connect: Server Full!", Terminal.warning); // Couldn't connect
         }
 
         private static void UDPReceiveCallback(IAsyncResult _result)
@@ -95,7 +95,7 @@ namespace deceptionServer
             }
             catch (Exception _ex)
             {
-                Console.WriteLine($"Error receiving UDP data: {_ex}");
+                Terminal.Send($"Error receiving UDP data: {_ex}", Terminal.error);
             }
         }
 
@@ -110,7 +110,7 @@ namespace deceptionServer
             }
             catch (Exception _ex)
             {
-                Console.WriteLine($"Error sending data to {_clientEndPoint} via UDP: {_ex}");
+                Terminal.Send($"Error sending data to {_clientEndPoint} via UDP: {_ex}", Terminal.error);
             }
         }
 
@@ -127,7 +127,7 @@ namespace deceptionServer
                 { (int)ClientPackets.playerNameReceived, ServerHandle.playerNameReceived },
                 { (int)ClientPackets.chatMessageReceived, ServerHandle.chatMessageReceived }
             };
-            Console.WriteLine("Initialised packets.");
+            Terminal.Send($"Initialised Packets", Terminal.log);
         }
     }
 }

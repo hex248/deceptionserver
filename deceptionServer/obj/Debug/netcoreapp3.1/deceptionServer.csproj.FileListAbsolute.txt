@@ -27,7 +27,6 @@ C:\Users\USER\Documents\Unity\deceptionserver\deceptionServer\obj\Debug\netcorea
 D:\Programming\Unity\deceptionserver\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.csprojAssemblyReference.cache
 D:\Programming\Unity\deceptionserver\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.AssemblyInfoInputs.cache
 D:\Programming\Unity\deceptionserver\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.AssemblyInfo.cs
-D:\Programming\Unity\deceptionserver\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.csproj.CoreCompileInputs.cache
 D:\Programming\Unity\deceptionserver\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.dll
 D:\Programming\Unity\deceptionserver\deceptionServer\obj\Debug\netcoreapp3.1\deceptionServer.pdb
 D:\Programming\Unity\deceptionserver\deceptionServer\bin\Debug\netcoreapp3.1\deceptionServer.exe

@@ -11,10 +11,10 @@ namespace deceptionServer
             int _clientIdCheck = _packet.ReadInt();
             string _username = _packet.ReadString();
 
-            Console.WriteLine($"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient}.");
+            Terminal.Send($"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient}.", Terminal.connection);
             if (_fromClient != _clientIdCheck)
             {
-                Console.WriteLine($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
+                Terminal.Send($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!", Terminal.error);
             }
         }
 
@@ -22,7 +22,7 @@ namespace deceptionServer
         {
             string _usernameReceived = _packet.ReadString();
 
-            Console.WriteLine($"Received playerName packet via UDP. Contains username: {_usernameReceived}");
+            Terminal.Send($"Received playerName packet via UDP. Contains username: {_usernameReceived}", Terminal.incoming);
         }
 
         public static void chatMessageReceived(int _fromClient, Packet _packet)
@@ -30,7 +30,7 @@ namespace deceptionServer
             string _usernameReceived = _packet.ReadString();
             string _messageReceived = _packet.ReadString();
 
-            Console.WriteLine($"Received chat messsage via UDP: {_messageReceived} from {_usernameReceived}");
+            Terminal.Send($"Received chat messsage via UDP: {_messageReceived} from {_usernameReceived}", Terminal.incoming);
 
             ServerSend.ChatMessage(_usernameReceived, _messageReceived);
         }

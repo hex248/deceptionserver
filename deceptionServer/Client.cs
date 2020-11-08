@@ -62,7 +62,7 @@ namespace deceptionServer
                 }
                 catch (Exception _ex)
                 {
-                    Console.WriteLine($"Error sending data to player {id} via TCP: {_ex}");
+                    Terminal.Send($"Error sending data to player {id} via TCP: {_ex}", Terminal.error);
                 }
             }
 
@@ -73,7 +73,7 @@ namespace deceptionServer
                     int _byteLength = stream.EndRead(_result);
                     if (_byteLength <= 0)
                     {
-                        Console.WriteLine("Disconnecting player");
+                        Terminal.Send("Disconnecting player", Terminal.connection);
                         Server.clients[id].Disconnect();
                         return;
                     }
@@ -86,7 +86,7 @@ namespace deceptionServer
                 }
                 catch (Exception _ex)
                 {
-                    Console.WriteLine($"Error receiving TCP data: {_ex}");
+                    Terminal.Send($"Error receiving TCP data: {_ex}", Terminal.error);
                     Server.clients[id].Disconnect();
                 }
             }
@@ -194,7 +194,7 @@ namespace deceptionServer
 
         public void Disconnect()
         {
-            Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} has disconnected");
+            Terminal.Send($"{tcp.socket.Client.RemoteEndPoint} has disconnected", Terminal.connection);
             tcp.Disconnect();
             udp.Disconnect();
 

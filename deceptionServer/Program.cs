@@ -20,7 +20,7 @@ namespace deceptionServer
 
         private static void MainThread()
         {
-            Console.WriteLine($"Main thread started. Running at {Constants.TICKS_PER_SEC} ticks per second");
+            Terminal.Send($"Main thread started. Running at {Constants.TICKS_PER_SEC} ticks per second", Terminal.log);
             DateTime _nextLoop = DateTime.Now;
 
             while (isRunning)
