@@ -31,6 +31,8 @@ namespace deceptionServer
             string _messageReceived = _packet.ReadString();
 
             Console.WriteLine($"Received chat messsage via UDP: {_messageReceived} from {_usernameReceived}");
+
+            ServerSend.ChatMessage(_usernameReceived, _messageReceived);
         }
     }
 }

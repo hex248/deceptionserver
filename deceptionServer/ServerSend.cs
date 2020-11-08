@@ -93,13 +93,14 @@ namespace deceptionServer
             }
         }
 
-        public static void ChatMessage(int _toClient)
+        public static void ChatMessage(string _username, string _message)
         {
             using (Packet _packet = new Packet((int)ServerPackets.chatMessage))
             {
-                _packet.Write("Player message packet.");
+                _packet.Write(_username);
+                _packet.Write(_message);
 
-                SendUDPData(_toClient, _packet);
+                SendUDPDataToAll(_packet);
             }
         }
         #endregion
