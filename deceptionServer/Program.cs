@@ -16,6 +16,14 @@ namespace deceptionServer
             mainThread.Start();
 
             Server.Start(5, 54850);
+
+            // Terminal.Send("chat", Terminal.chat);
+            // Terminal.Send("warning", Terminal.warning);
+            // Terminal.Send("error", Terminal.error);
+            // Terminal.Send("log", Terminal.log);
+            // Terminal.Send("debug", Terminal.debug);
+            // Terminal.Send("connection", Terminal.connection);
+            // Terminal.Send("incoming", Terminal.incoming);
         }
 
         private static void MainThread()
