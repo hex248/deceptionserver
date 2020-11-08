@@ -26,7 +26,6 @@ namespace deceptionServer
                 Server.clients[i].tcp.SendData(_packet);
             }
         }
-
         private static void SendTCPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
@@ -47,7 +46,6 @@ namespace deceptionServer
                 Server.clients[i].udp.SendData(_packet);
             }
         }
-
         private static void SendUDPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
@@ -100,7 +98,7 @@ namespace deceptionServer
                 _packet.Write(_username);
                 _packet.Write(_message);
 
-                SendUDPDataToAll(_packet);
+                SendTCPDataToAll(_packet);
             }
         }
         #endregion
