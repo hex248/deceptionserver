@@ -51,10 +51,6 @@ namespace deceptionServer
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
                 ServerSend.Welcome(id, "Welcome to the server!");
-
-                Server.players[id].ip = (IPEndPoint)_socket.Client.RemoteEndPoint;
-
-                ServerSend.PlayerObject(id, Server.players[id].ip, Server.players[id].username);
             }
 
             public void SendData(Packet _packet)

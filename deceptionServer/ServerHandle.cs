@@ -13,7 +13,10 @@ namespace deceptionServer
             int _clientIdCheck = _packet.ReadInt();
             string _username = _packet.ReadString();
 
+            Server.players[_fromClient].ip = (IPEndPoint)Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint;
             Server.players[_fromClient].username = _username;
+
+            ServerSend.PlayerObject(_fromClient, Server.players[_fromClient].ip, Server.players[_fromClient].username);
 
             Terminal.Send($"{_username} ({Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint}) connected successfully and is now player {_fromClient}.", Terminal.connection);
             if (_fromClient != _clientIdCheck)
@@ -35,7 +38,7 @@ namespace deceptionServer
 
             Server.players[_fromClient].mac = PhysicalAddress.Parse(_macReceived);
 
-            Terminal.Send($"Received playerMac packet via TCP. Written to the corresponding player's object.", Terminal.incoming);
+            Terminal.Send($"Received playerMac packet via TCP. written to the corresponding player's object.", Terminal.incoming);
         }
 
         public static void chatMessageReceived(int _fromClient, Packet _packet)
