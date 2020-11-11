@@ -14,7 +14,6 @@ namespace deceptionServer
             string _username = _packet.ReadString();
 
             Server.players[_fromClient].username = _username;
-            Server.players[_fromClient].ip = (IPEndPoint)Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint;
 
             Terminal.Send($"{_username} ({Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint}) connected successfully and is now player {_fromClient}.", Terminal.connection);
             if (_fromClient != _clientIdCheck)

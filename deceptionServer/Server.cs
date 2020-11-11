@@ -55,6 +55,7 @@ namespace deceptionServer
                 {
                     clients[i].tcp.Connect(_client); // Connect the player
                     clients[i].ip = _client.Client.RemoteEndPoint;
+                    players[i].ip = (IPEndPoint)_client.Client.RemoteEndPoint;
                     return;
                 }
             }
