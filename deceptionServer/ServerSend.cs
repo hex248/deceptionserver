@@ -124,7 +124,7 @@ namespace deceptionServer
             }
         }
 
-        public static void PlayerObject(int _toClient, EndPoint _ip, string _username)
+        public static void PlayerObject(int _toClient, IPEndPoint _ip, string _username)
         {
             using (Packet _packet = new Packet((int)ServerPackets.playerObject))
             {

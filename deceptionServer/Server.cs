@@ -38,6 +38,8 @@ namespace deceptionServer
             udpListener.BeginReceive(UDPReceiveCallback, null);
 
             Terminal.Send($"Server started on {Port}", Terminal.log); // Server started
+
+            Console.ReadKey();
         }
 
         private static void TCPConnectCallback(IAsyncResult _result)
