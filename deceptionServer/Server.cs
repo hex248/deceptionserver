@@ -12,6 +12,8 @@ namespace deceptionServer
         public static int MaxPlayers { get; private set; } // Can only be internally set, cannot be changed by another script
         public static int Port { get; private set; } // Can only be internally set, cannot be changed by another script - ports are constant anyway
         public static Dictionary<int, Client> clients = new Dictionary<int, Client>(); // A dictionary of clients which takes the id then the Client class instance
+        public static Dictionary<int, Player> players = new Dictionary<int, Player>(); // A dictionary of player which takes the id then the Player class instance
+        public static List<Lobby> lobbies = new List<Lobby>();
         public delegate void PacketHandler(int _fromClient, Packet _packet);
         public static Dictionary<int, PacketHandler> packetHandlers;
 
@@ -50,6 +52,7 @@ namespace deceptionServer
                 if (clients[i].tcp.socket == null) // If the socket is not null:
                 {
                     clients[i].tcp.Connect(_client); // Connect the player
+                    clients[i].ip = _client.Client.RemoteEndPoint;
                     return;
                 }
             }
@@ -121,10 +124,16 @@ namespace deceptionServer
                 clients.Add(i, new Client(i)); // Add to dictionary of clients
             }
 
+            for (int i = 1; i <= MaxPlayers; i++) // For each player (client)
+            {
+                players.Add(i, new Player((IPEndPoint)clients[i].ip)); // Add to dictionary of clients
+            }
+
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
                 { (int)ClientPackets.playerNameReceived, ServerHandle.playerNameReceived },
+                { (int)ClientPackets.playerMacReceived, ServerHandle.playerMacReceived },
                 { (int)ClientPackets.chatMessageReceived, ServerHandle.chatMessageReceived }
             };
             Terminal.Send($"Initialised Packets", Terminal.log);

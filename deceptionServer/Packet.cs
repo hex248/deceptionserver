@@ -9,6 +9,7 @@ namespace deceptionServer
     {
         welcome = 1,
         playerName,
+        playerObject,
         playerDisconnected,
         chatMessage
     }
@@ -18,6 +19,7 @@ namespace deceptionServer
     {
         welcomeReceived = 1,
         playerNameReceived,
+        playerMacReceived,
         chatMessageReceived
     }
 

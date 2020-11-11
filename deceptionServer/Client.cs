@@ -13,6 +13,7 @@ namespace deceptionServer
         public int id;
         public TCP tcp;
         public UDP udp;
+        public EndPoint ip;
 
         public Client(int _clientId)
         {
@@ -26,6 +27,7 @@ namespace deceptionServer
             public TcpClient socket;
 
             private readonly int id;
+            
             private NetworkStream stream;
             private Packet receivedData;
             private byte[] receiveBuffer;
@@ -49,6 +51,8 @@ namespace deceptionServer
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
                 ServerSend.Welcome(id, "Welcome to the server!");
+
+                ServerSend.PlayerObject(id, Server.players[id].ip, Server.players[id].username);
             }
 
             public void SendData(Packet _packet)
@@ -163,7 +167,6 @@ namespace deceptionServer
             public void Connect(IPEndPoint _endPoint)
             {
                 endPoint = _endPoint;
-                ServerSend.PlayerName(id);
             }
 
             public void SendData(Packet _packet)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Net;
 
 namespace deceptionServer
 {
@@ -40,6 +41,21 @@ namespace deceptionServer
             }
         }
 
+        private static void SendTCPDataToAll(int _exceptClient, Packet _packet, Lobby _lobby)
+        {
+            _packet.WriteLength();
+            for (int i = 1; i <= Server.MaxPlayers; i++) // For each connecting player:
+            {
+                if (i != _exceptClient)
+                {
+                    if (_lobby.players.Contains(Server.players[i])) // If the player is in the target lobby:
+                    {
+                        Server.clients[i].tcp.SendData(_packet);
+                    }
+                }
+            }
+        }
+
         private static void SendUDPDataToAll(Packet _packet)
         {
             _packet.WriteLength();
@@ -56,6 +72,21 @@ namespace deceptionServer
                 if (i != _exceptClient)
                 {
                     Server.clients[i].udp.SendData(_packet);
+                }
+            }
+        }
+
+        private static void SendUDPDataToAll(int _exceptClient, Packet _packet, Lobby _lobby)
+        {
+            _packet.WriteLength();
+            for (int i = 1; i <= Server.MaxPlayers; i++) // For each connecting player:
+            {
+                if (i != _exceptClient)
+                {
+                    if (_lobby.players.Contains(Server.players[i])) // If the player is in the target lobby:
+                    {
+                        Server.clients[i].udp.SendData(_packet);
+                    }
                 }
             }
         }
@@ -90,6 +121,15 @@ namespace deceptionServer
                 _packet.Write(_playerId);
 
                 SendTCPDataToAll(_packet);
+            }
+        }
+
+        public static void PlayerObject(int _toClient, EndPoint _ip, string _username)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.playerObject))
+            {
+                _packet.Write(_ip.ToString());
+                _packet.Write(_username);
             }
         }
 
