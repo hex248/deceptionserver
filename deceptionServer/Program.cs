@@ -19,6 +19,8 @@ namespace deceptionServer
 
             Server.Start(5, 54850);
 
+            Console.ReadKey();
+
             // Terminal.Send("chat", Terminal.chat);
             // Terminal.Send("warning", Terminal.warning);
             // Terminal.Send("error", Terminal.error);
