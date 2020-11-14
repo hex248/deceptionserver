@@ -119,6 +119,8 @@ namespace deceptionServer
                 _packet.Write(_playerId);
 
                 SendTCPDataToAll(_packet);
+
+                LobbyUpdate(Server.lobbies);
             }
         }
 
