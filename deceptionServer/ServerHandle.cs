@@ -75,7 +75,7 @@ namespace deceptionServer
             {
                 if (lobby.id == _lobbyIdReceived && lobby.players.Count < lobby.maxPlayers)
                 {
-                    for (int i = 0; i < Server.players.Count; i++)
+                    for (int i = 1; i < Server.players.Count; i++)
                     {
                         if (Server.players[i].ip.ToString() == _ip)
                         {
