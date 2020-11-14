@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using Console = Colorful.Console;
+using System.IO;
 
 namespace deceptionServer
 {
@@ -31,42 +32,61 @@ namespace deceptionServer
 
         public static void Send(string content, char type)
         {
-            switch(type)
+            StreamWriter logFile;
+
+            // Locate/Create log file
+            if (!File.Exists("log.txt"))
+            {
+                logFile = new StreamWriter("log.txt");
+            }
+            else
+            {
+                logFile = File.AppendText("log.txt");
+            }
+
+            switch (type)
             {
                 case 'c':
                     content = $"[CHAT] => {content}";
                     Console.WriteLine($"{DateTime.UtcNow}: {content}", yellow);
+                    logFile.WriteLine($"{DateTime.UtcNow}: {content}");
                     break;
                 case 'w':
                     content = $"[WARNING] => {content}";
                     Console.WriteLine($"{DateTime.UtcNow}: {content}", orange);
+                    logFile.WriteLine($"{DateTime.UtcNow}: {content}");
                     break;
                 case 'e':
                     content = $"[ERROR] => {content}";
                     Console.WriteLine($"{DateTime.UtcNow}: {content}", red);
+                    logFile.WriteLine($"{DateTime.UtcNow}: {content}");
                     break;
                 case 'l':
                     content = $"[LOG] => {content}";
                     Console.WriteLine($"{DateTime.UtcNow}: {content}", pink);
+                    logFile.WriteLine($"{DateTime.UtcNow}: {content}");
                     break;
                 case 'd':
                     content = $"[DEBUG] => {content}";
                     Console.WriteLine($"{DateTime.UtcNow}: {content}", blue);
+                    logFile.WriteLine($"{DateTime.UtcNow}: {content}");
                     break;
                 case 'n':
                     content = $"[CONNECTION] => {content}";
                     Console.WriteLine($"{DateTime.UtcNow}: {content}", green);
+                    logFile.WriteLine($"{DateTime.UtcNow}: {content}");
                     break;
                 case 'i':
                     content = $"[INCOMING] => {content}";
                     Console.WriteLine($"{DateTime.UtcNow}: {content}", teal);
+                    logFile.WriteLine($"{DateTime.UtcNow}: {content}");
                     break;
                 default:
                     content = $"[UNKOWN] => {content}";
                     Console.WriteLine($"{DateTime.UtcNow}: {content}", scarlet);
+                    logFile.WriteLine($"{DateTime.UtcNow}: {content}");
                     break;
             }
-
         }
     }
 }
