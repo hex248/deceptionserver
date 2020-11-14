@@ -12,6 +12,7 @@ namespace deceptionServer
         public string ownerName;
         public List<Player> players = new List<Player>();
         public int maxPlayers = 5;
+        public bool hasBeenJoined;
 
         public Lobby(int _maxPlayers, string _ownerIP, string _ownerName)
         {

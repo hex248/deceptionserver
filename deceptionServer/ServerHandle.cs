@@ -83,6 +83,8 @@ namespace deceptionServer
 
                             ServerSend.JoinLobby(i, lobby.id);
 
+                            lobby.hasBeenJoined = true;
+
                             Terminal.Send($"Accepted player {Server.players[i].username}({Server.players[i].ip}) into lobby {lobby.id}", Terminal.log);
 
                             break;

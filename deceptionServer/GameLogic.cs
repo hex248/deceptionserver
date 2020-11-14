@@ -12,7 +12,7 @@ namespace deceptionServer
 
             foreach (Lobby lobby in Server.lobbies)
             {
-                if (lobby.players.Count <= 0)
+                if (lobby.hasBeenJoined && lobby.players.Count <= 0)
                 {
                     ServerSend.LobbyUpdate(lobby, "clear");
                     Server.lobbies.Remove(lobby);
