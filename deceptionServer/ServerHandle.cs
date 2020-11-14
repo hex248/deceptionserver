@@ -16,7 +16,7 @@ namespace deceptionServer
             Server.players[_fromClient].ip = (IPEndPoint)Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint;
             Server.players[_fromClient].username = _username;
 
-            ServerSend.PlayerObject(_fromClient, Server.players[_fromClient].ip, Server.players[_fromClient].username);
+            ServerSend.PlayerObject(_fromClient, (IPEndPoint)Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint, Server.players[_fromClient].username);
 
             Terminal.Send($"{_username} ({Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint}) connected successfully and is now player {_fromClient}.", Terminal.connection);
             if (_fromClient != _clientIdCheck)
