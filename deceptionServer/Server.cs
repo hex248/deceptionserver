@@ -137,7 +137,9 @@ namespace deceptionServer
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
                 { (int)ClientPackets.playerNameReceived, ServerHandle.playerNameReceived },
                 { (int)ClientPackets.playerMacReceived, ServerHandle.playerMacReceived },
-                { (int)ClientPackets.chatMessageReceived, ServerHandle.chatMessageReceived }
+                { (int)ClientPackets.chatMessageReceived, ServerHandle.chatMessageReceived },
+                { (int)ClientPackets.createLobbyReceived, ServerHandle.createLobbyReceived },
+                { (int)ClientPackets.lobbyJoinReceived, ServerHandle.lobbyJoinReceived }
             };
             Terminal.Send($"Initialised Packets", Terminal.log);
         }

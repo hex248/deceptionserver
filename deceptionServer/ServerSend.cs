@@ -128,6 +128,8 @@ namespace deceptionServer
             {
                 _packet.Write(_ip.ToString());
                 _packet.Write(_username);
+
+                SendTCPData(_toClient, _packet);
             }
         }
 
@@ -136,6 +138,8 @@ namespace deceptionServer
             using (Packet _packet = new Packet((int)ServerPackets.lobbyJoin))
             {
                 _packet.Write(lobbyId);
+
+                SendTCPData(_toClient, _packet);
             }
         }
 
