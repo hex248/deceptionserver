@@ -160,6 +160,23 @@ namespace deceptionServer
             }
         }
 
+        public static void LobbyUpdate(List<Lobby> lobbies, int _toClient)
+        {
+            foreach (Lobby lobby in lobbies)
+            {
+                using (Packet _packet = new Packet((int)ServerPackets.lobbyUpdate))
+                {
+                    _packet.Write(lobby.id);
+                    _packet.Write(lobby.ownerIP);
+                    _packet.Write(lobby.ownerName);
+                    _packet.Write(lobby.players.Count);
+                    _packet.Write("update");
+
+                    SendTCPData(_toClient, _packet);
+                }
+            }
+        }
+
         public static void LobbyUpdate(Lobby lobby, string updateType)
         {
             using (Packet _packet = new Packet((int)ServerPackets.lobbyUpdate))

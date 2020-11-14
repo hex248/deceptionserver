@@ -18,6 +18,8 @@ namespace deceptionServer
 
             ServerSend.PlayerObject(_fromClient, (IPEndPoint)Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint, Server.players[_fromClient].username);
 
+            ServerSend.LobbyUpdate(Server.lobbies, _fromClient);
+
             Terminal.Send($"{_username} ({Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint}) connected successfully and is now player {_fromClient}.", Terminal.connection);
             if (_fromClient != _clientIdCheck)
             {
