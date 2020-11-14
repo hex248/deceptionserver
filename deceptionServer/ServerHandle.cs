@@ -51,11 +51,46 @@ namespace deceptionServer
             ServerSend.ChatMessage(_usernameReceived, _messageReceived);
         }
 
+        public static void createLobbyReceived(int _fromClient, Packet _packet)
+        {
+            string ownerName = _packet.ReadString();
+            string ownerIP = _packet.ReadString();
+
+            Server.lobbies.Add(new Lobby(5, ownerIP, ownerName));
+
+            ServerSend.LobbyUpdate(Server.lobbies);
+
+            Terminal.Send($"Received a lobby creation request via TCP from {ownerIP}", Terminal.incoming);
+        }
+
         public static void lobbyJoinReceived(int _fromClient, Packet _packet)
         {
             string _ip = _packet.ReadString();
-            string _usernameReceived = _packet.ReadString();
             string _lobbyIdReceived = _packet.ReadString();
+            
+            // Add to lobby
+            foreach (Lobby lobby in Server.lobbies)
+            {
+                if (lobby.id == _lobbyIdReceived && lobby.players.Count < lobby.maxPlayers)
+                {
+                    for (int i = 0; i < Server.players.Count; i++)
+                    {
+                        if (Server.players[i].ip.ToString() == _ip)
+                        {
+                            lobby.players.Add(Server.players[i]); // adds the player to the lobby's 
+
+                            Server.players[i].currentLobby = lobby.id; // sets the player's current lobby
+
+                            ServerSend.JoinLobby(i, lobby.id);
+
+                            Terminal.Send($"Accepted player {Server.players[i].username}({Server.players[i].ip}) into lobby {lobby.id}", Terminal.log);
+
+                            break;
+                        }
+                    }
+                    
+                }
+            }
         }
     }
 }

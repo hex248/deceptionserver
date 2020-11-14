@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Net;
 
 namespace deceptionServer
 {
-    class ServerSend
+    internal class ServerSend
     {
         private static void SendTCPData(int _toClient, Packet _packet)
         {
@@ -26,9 +24,8 @@ namespace deceptionServer
             {
                 Server.clients[i].tcp.SendData(_packet);
             }
-
-            Terminal.Send($"Sent TCP data to all clients: {_packet}", Terminal.log);
         }
+
         private static void SendTCPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
@@ -64,6 +61,7 @@ namespace deceptionServer
                 Server.clients[i].udp.SendData(_packet);
             }
         }
+
         private static void SendUDPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
@@ -91,8 +89,8 @@ namespace deceptionServer
             }
         }
 
-
         #region Packets
+
         public static void Welcome(int _toClient, string _msg)
         {
             using (Packet _packet = new Packet((int)ServerPackets.welcome))
@@ -133,6 +131,45 @@ namespace deceptionServer
             }
         }
 
+        public static void JoinLobby(int _toClient, string lobbyId)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.lobbyJoin))
+            {
+                _packet.Write(lobbyId);
+            }
+        }
+
+        public static void LobbyUpdate(List<Lobby> lobbies)
+        {
+            foreach (Lobby lobby in lobbies)
+            {
+                using (Packet _packet = new Packet((int)ServerPackets.lobbyUpdate))
+                {
+                    _packet.Write(lobby.id);
+                    _packet.Write(lobby.ownerIP);
+                    _packet.Write(lobby.ownerName);
+                    _packet.Write(lobby.players.Count);
+                    _packet.Write("update");
+
+                    SendTCPDataToAll(_packet);
+                }
+            }
+        }
+
+        public static void LobbyUpdate(Lobby lobby, string updateType)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.lobbyUpdate))
+            {
+                _packet.Write(lobby.id);
+                _packet.Write(lobby.ownerIP);
+                _packet.Write(lobby.ownerName);
+                _packet.Write(lobby.players.Count);
+                _packet.Write("clear");
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
         public static void ChatMessage(string _username, string _message)
         {
             using (Packet _packet = new Packet((int)ServerPackets.chatMessage))
@@ -145,6 +182,7 @@ namespace deceptionServer
                 SendTCPDataToAll(_packet);
             }
         }
-        #endregion
+
+        #endregion Packets
     }
 }

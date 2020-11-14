@@ -11,7 +11,9 @@ namespace deceptionServer
         playerName,
         playerObject,
         playerDisconnected,
-        chatMessage
+        chatMessage,
+        lobbyJoin,
+        lobbyUpdate
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -20,7 +22,9 @@ namespace deceptionServer
         welcomeReceived = 1,
         playerNameReceived,
         playerMacReceived,
-        chatMessageReceived
+        chatMessageReceived,
+        createLobbyReceived,
+        lobbyJoinReceived
     }
 
     public class Packet : IDisposable
