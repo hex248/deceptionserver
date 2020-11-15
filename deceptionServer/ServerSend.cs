@@ -38,17 +38,14 @@ namespace deceptionServer
             }
         }
 
-        private static void SendTCPDataToAll(int _exceptClient, Packet _packet, Lobby _lobby)
+        private static void SendTCPDataToAll(Packet _packet, Lobby _lobby)
         {
             _packet.WriteLength();
             for (int i = 1; i <= Server.MaxPlayers; i++) // For each connecting player:
             {
-                if (i != _exceptClient)
+                if (_lobby.players.Contains(Server.players[i])) // If the player is in the target lobby:
                 {
-                    if (_lobby.players.Contains(Server.players[i])) // If the player is in the target lobby:
-                    {
-                        Server.clients[i].tcp.SendData(_packet);
-                    }
+                    Server.clients[i].tcp.SendData(_packet);
                 }
             }
         }
@@ -193,7 +190,7 @@ namespace deceptionServer
             }
         }
 
-        public static void ChatMessage(string _username, string _message)
+        public static void ChatMessage(string _username, string _message, Lobby lobby)
         {
             using (Packet _packet = new Packet((int)ServerPackets.chatMessage))
             {
@@ -202,7 +199,7 @@ namespace deceptionServer
 
                 Terminal.Send($"Sending via TCP to all: Chat Message: {_message} from {_username}", Terminal.chat);
 
-                SendTCPDataToAll(_packet);
+                SendTCPDataToAll(_packet, lobby);
             }
         }
 

@@ -47,10 +47,21 @@ namespace deceptionServer
         {
             string _usernameReceived = _packet.ReadString();
             string _messageReceived = _packet.ReadString();
+            string _lobbyIdReceived = _packet.ReadString();
 
-            Terminal.Send($"Received chat messsage via UDP: {_messageReceived} from {_usernameReceived}", Terminal.incoming);
+            Terminal.Send($"Received chat messsage via UDP: {_messageReceived} from {_usernameReceived} in lobby: {_lobbyIdReceived}", Terminal.incoming);
 
-            ServerSend.ChatMessage(_usernameReceived, _messageReceived);
+
+            foreach (Lobby lobby in Server.lobbies)
+            {
+                if (lobby.id == _lobbyIdReceived)
+                {
+                    ServerSend.ChatMessage(_usernameReceived, _messageReceived, lobby);
+                    break;
+                }
+            }
+
+            
         }
 
         public static void createLobbyReceived(int _fromClient, Packet _packet)
