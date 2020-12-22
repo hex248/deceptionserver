@@ -116,7 +116,7 @@ namespace deceptionServer
                         using (Packet _packet = new Packet(_packetBytes))
                         {
                             int _packetId = _packet.ReadInt();
-                            Terminal.Send($"_packetId: {_packetId}\nid: {id}", Terminal.log);
+                            Terminal.Send($"_packetId: {_packetId} - id: {id}", Terminal.log);
                             Server.packetHandlers[_packetId](id, _packet);
                         }
 
