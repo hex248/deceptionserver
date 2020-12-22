@@ -10,9 +10,7 @@ namespace deceptionServer
         {
             ThreadManager.UpdateMain();
 
-            List<Lobby> lobbies = Server.lobbies;
-
-            foreach (Lobby lobby in lobbies)
+            foreach (Lobby lobby in Server.lobbies.ToArray())
             {
                 if (lobby.hasBeenJoined && lobby.players.Count <= 0)
                 {
