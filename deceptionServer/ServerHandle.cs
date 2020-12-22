@@ -80,7 +80,7 @@ namespace deceptionServer
         {
             string _ip = _packet.ReadString();
             string _lobbyIdReceived = _packet.ReadString();
-            
+
             // Add to lobby
             foreach (Lobby lobby in Server.lobbies)
             {
@@ -103,7 +103,37 @@ namespace deceptionServer
                             break;
                         }
                     }
-                    
+
+                }
+            }
+        }
+
+        public static void lobbyLeaveReceived(int _fromClient, Packet _packet)
+        {
+            string _ip = _packet.ReadString();
+            string _lobbyIdReceived = _packet.ReadString();
+
+            // Add to lobby
+            foreach (Lobby lobby in Server.lobbies)
+            {
+                if (lobby.id == _lobbyIdReceived)
+                {
+                    for (int i = 1; i < Server.players.Count; i++)
+                    {
+                        if (Server.players[i].ip.ToString() == _ip)
+                        {
+                            lobby.players.Remove(Server.players[i]); // removes the player from the lobby
+
+                            Server.players[i].currentLobby = null; // sets the player's current lobby to null
+
+                            Terminal.Send($"Removed player {Server.players[i].username}({Server.players[i].ip}) from lobby {lobby.id}", Terminal.log);
+
+                            ServerSend.LobbyUpdate(Server.lobbies);
+
+                            break;
+                        }
+                    }
+
                 }
             }
         }
