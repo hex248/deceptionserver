@@ -113,7 +113,7 @@ namespace deceptionServer
             string _ip = _packet.ReadString();
             string _lobbyIdReceived = _packet.ReadString();
 
-            // Add to lobby
+            // Remove from lobby
             foreach (Lobby lobby in Server.lobbies)
             {
                 if (lobby.id == _lobbyIdReceived)
